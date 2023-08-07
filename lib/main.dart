@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_fields, library_private_types_in_public_api, use_key_in_widget_constructors, prefer_const_constructors
+// ignore_for_file: use_key_in_widget_constructors, prefer_final_fields, prefer_const_constructors, sort_child_properties_last
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -10,6 +10,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false, // remove debug banner
+      theme: ThemeData(
+        primaryColor: Colors.green,
+        colorScheme: ColorScheme.fromSwatch()
+            .copyWith(background: Colors.grey[200], primary: Colors.green),
+      ),
       home: SentimentAnalysisPage(),
     );
   }
@@ -17,6 +23,7 @@ class MyApp extends StatelessWidget {
 
 class SentimentAnalysisPage extends StatefulWidget {
   @override
+  // ignore: library_private_types_in_public_api
   _SentimentAnalysisPageState createState() => _SentimentAnalysisPageState();
 }
 
@@ -46,25 +53,35 @@ class _SentimentAnalysisPageState extends State<SentimentAnalysisPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sentiment Analysis App'),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextField(
               controller: _controller,
               decoration: InputDecoration(
                 hintText: 'Enter a sentence or phrase',
+                border: OutlineInputBorder(),
               ),
+              maxLines: 3,
             ),
+            SizedBox(height: 16),
             ElevatedButton(
               onPressed: analyzeSentiment,
               child: Text('Analyze'),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(vertical: 16),
+              ),
             ),
+            SizedBox(height: 16),
             Text(
               'Sentiment: $_sentiment',
               style: TextStyle(fontSize: 20),
+              textAlign: TextAlign.center,
             ),
           ],
         ),
