@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Import CORS
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
@@ -9,6 +10,7 @@ nltk.download('stopwords')
 nltk.download('vader_lexicon')
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS
 
 def preprocess_text(text):
     text = text.replace('.', '').replace(',', '').replace('!', '').replace('?', '')

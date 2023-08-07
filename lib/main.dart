@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields, library_private_types_in_public_api, use_key_in_widget_constructors, prefer_const_constructors
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -24,7 +26,8 @@ class _SentimentAnalysisPageState extends State<SentimentAnalysisPage> {
 
   Future<void> analyzeSentiment() async {
     final response = await http.post(
-      Uri.parse('http://localhost:5000/analyze'),
+      Uri.parse(
+          'https://sentiment-flutter-app-e93b1e50a313.herokuapp.com/analyze'),
       body: jsonEncode({'text': _controller.text}),
       headers: {'Content-Type': 'application/json'},
     );
